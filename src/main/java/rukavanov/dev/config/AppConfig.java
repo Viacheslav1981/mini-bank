@@ -3,10 +3,10 @@ package rukavanov.dev.config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
 
 @Configuration
-@ComponentScan
-@PropertySources()
+@ComponentScan(basePackages = "rukavanov.dev")
+@PropertySource("classpath:application.properties")
 public class AppConfig {
+
 }
