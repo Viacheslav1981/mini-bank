@@ -18,6 +18,9 @@ public class ConsoleListener {
     private int accountId;
     private int depositMoney;
     private int withdrawMoney;
+    private int transferMoney;
+    private int fromAccountId;
+    private int toAccountId;
 
     public ConsoleListener(OperationConsoleListener operationConsoleListener) {
         this.operationConsoleListener = operationConsoleListener;
@@ -67,8 +70,18 @@ public class ConsoleListener {
                         withdrawMoney = scanner.nextInt();
                         operationConsoleListener.withdrawMoney(accountId, withdrawMoney);
                         break;
+                    case ACCOUNT_TRANSFER:
+                        System.out.println("Enter source account id: ");
+                        fromAccountId = scanner.nextInt();
+                        System.out.println("Enter destination account id: ");
+                        toAccountId = scanner.nextInt();
+                        System.out.println("Enter amount to transfer: ");
+                        transferMoney = scanner.nextInt();
+                        operationConsoleListener.transferMoney(fromAccountId, toAccountId, transferMoney);
+                        break;
 
                     case EXIT:
+                        System.out.println("MiniBank stopped.");
                         return;
                 }
             }

@@ -49,15 +49,35 @@ public class AccountService {
         return allMoneyAmount;
     }
 
+    public String transferMoney(int fromAccountId, int toAccountId, int transferMoney) {
+        Account fromAccount = accounts.get(fromAccountId);
+        Account toAccount = accounts.get(toAccountId);
+        double commission = accountProperties.getCommission();
+        double transferMoneyWithCommission = transferMoney * (1 - commission);
+        String aboutTransfer = "";
+
+        int allMoneyAmount = fromAccount.getMoneyAmount();
+        if (transferMoney > allMoneyAmount) {
+            return aboutTransfer;
+        }
+
+        if (fromAccount.getUserId() == toAccount.getUserId()) {
+            fromAccount.setMoneyAmount(fromAccount.getMoneyAmount() - transferMoney);
+            toAccount.setMoneyAmount(toAccount.getMoneyAmount() + transferMoney);
+            aboutTransfer = "(no commission same user)";
+        } else {
+            fromAccount.setMoneyAmount(fromAccount.getMoneyAmount() - transferMoney);
+            toAccount.setMoneyAmount((int) (toAccount.getMoneyAmount() + transferMoneyWithCommission));
+            aboutTransfer = ", commission is " + commission + "%"
+                + ", recipient received: " + transferMoneyWithCommission;
+        }
+        return aboutTransfer;
+
+    }
+
     public int getAllMoneyAmount() {
         return accountProperties.getMoneyAmount();
     }
-
-//    public List<Account> getAccounts(String login) {
-//        for (Map.Entry<Integer, Account> entry : accounts.entrySet()) {
-//            entry.getValue()
-//        }
-//    }
 
 
 }

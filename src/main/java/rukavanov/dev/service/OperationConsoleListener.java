@@ -42,7 +42,7 @@ public class OperationConsoleListener {
     }
 
     public void withdrawMoney(int accountId, int withdrawMoney) {
-        int allMoneyAmount = accountService.getAllMoneyAmount();K
+        int allMoneyAmount = accountService.getAllMoneyAmount();
         if (withdrawMoney > allMoneyAmount) {
             System.out.println("Withdrew " + allMoneyAmount + " to account " +
                     accountId + ". New balance: " + 0);
@@ -52,6 +52,22 @@ public class OperationConsoleListener {
                     accountId + ". New balance: " + allMoneyAmount);
         }
 
-
     }
+
+    public void transferMoney(int fromAccountId,
+                              int toAccountId, int transferMoney) {
+
+        String aboutCommission = accountService.transferMoney(fromAccountId, toAccountId, transferMoney);
+
+        if (aboutCommission.isEmpty()) {
+            System.out.println("Not enough money to transfer from " + fromAccountId + " to " + toAccountId);
+        } else {
+            System.out.println("Transfer completed from " + fromAccountId + " to "
+                    + toAccountId + ". Transfer amount is " + transferMoney + " "
+                    + aboutCommission);
+        }
+    }
+
+
 }
+
