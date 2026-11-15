@@ -1,12 +1,13 @@
 package rukavanov.dev.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class User {
     private int id;
     private String login;
-    private List<Account> accountList;
+    private List<Account> accountList =  new ArrayList<>();
 
     public User() {
     }

@@ -10,6 +10,10 @@ public class Account {
     public Account() {
     }
 
+    public Account(int userId) {
+        this.userId = userId;
+    }
+
     public Account(int id, int userId, int moneyAmount) {
         this.id = id;
         this.userId = userId;
