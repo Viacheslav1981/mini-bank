@@ -7,21 +7,9 @@ public class Account {
     private int userId;
     private int moneyAmount;
 
-    public Account() {
-    }
-
-    public Account(int userId) {
-        this.userId = userId;
-    }
-
     public Account(int id, int userId, int moneyAmount) {
         this.id = id;
         this.userId = userId;
-        this.moneyAmount = moneyAmount;
-    }
-
-    public Account(int id, int moneyAmount) {
-        this.id = id;
         this.moneyAmount = moneyAmount;
     }
 

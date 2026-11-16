@@ -9,8 +9,6 @@ import java.util.Scanner;
 @Component
 public class ConsoleListener {
 
-    //private final UserService userService;
-    // private final AccountService accountService;
     private final OperationService operationService;
 
     private int accountId;

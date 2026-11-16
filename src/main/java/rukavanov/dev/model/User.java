@@ -7,20 +7,11 @@ import java.util.Objects;
 public class User {
     private int id;
     private String login;
-    private List<Account> accountList =  new ArrayList<>();
+    private List<Account> accountList = new ArrayList<>();
 
-    public User() {
-    }
-
-    public User(int id,  String login) {
+    public User(int id, String login) {
         this.id = id;
         this.login = login;
-    }
-
-    public User(int id, String login, List<Account> accountList) {
-        this.id = id;
-        this.login = login;
-        this.accountList = accountList;
     }
 
     public int getId() {
@@ -41,10 +32,6 @@ public class User {
 
     public List<Account> getAccountList() {
         return accountList;
-    }
-
-    public void setAccountList(List<Account> accountList) {
-        this.accountList = accountList;
     }
 
     @Override

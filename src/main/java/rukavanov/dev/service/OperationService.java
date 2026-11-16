@@ -8,7 +8,6 @@ public class OperationService {
 
     private final UserService userService;
     private final AccountService accountService;
-    private int userId;
 
     public OperationService(UserService userService, AccountService accountService) {
         this.userService = userService;
@@ -17,7 +16,7 @@ public class OperationService {
 
     public void createUser(String login) {
         userService.addUser(login);
-        userId = userService.getUserByLogin(login).getId();
+        int userId = userService.getUserByLogin(login).getId();
         Account account = accountService.addAccount(userId);
         userService.getUserById(userId).getAccountList().add(account);
         System.out.println("User created:");
@@ -65,7 +64,7 @@ public class OperationService {
         Account toAccount = accountService.getAccountById(toAccountId);
         double commission = accountService.getCommission();
         double transferMoneyWithCommission = transferMoney * (1 - commission);
-        String aboutTransfer = "";
+        String aboutTransfer = " ";
 
         int allMoneyAmount = fromAccount.getMoneyAmount();
         if (transferMoney > allMoneyAmount) {
