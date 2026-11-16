@@ -29,7 +29,6 @@ public class ConsoleListener {
                 System.out.println("Enter command: ");
                 Scanner scanner = new Scanner(System.in);
                 Command command = Command.valueOf(scanner.nextLine().strip().toUpperCase());
-
                 switch (command) {
                     case USER_CREATE:
                         System.out.println("Enter login: ");
