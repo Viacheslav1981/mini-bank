@@ -20,60 +20,57 @@ public class AccountService {
         this.userService = userService;
     }
 
-    public Account createAccount(String login) {
-        Account account = new Account(userService.getUserByLogin(login).getId());
-        account.setId(++accountId);
-        account.setMoneyAmount(accountProperties.getMoneyAmount());
+    public Account addAccount(int userId) {
+        Account account = new Account(++accountId, userId, accountProperties.getMoneyAmount());
         accounts.put(account.getId(), account);
-        userService.getUserByLogin(login).getAccountList().add(account);
         return account;
     }
 
-    public int depositMoney(int accountId, int depositMoney) {
-        Account account = accounts.get(accountId);
-        int allAmount = account.getMoneyAmount() + depositMoney;
-        account.setMoneyAmount(allAmount);
-        return allAmount;
+    public Account getAccountById(int accountId) {
+        return accounts.get(accountId);
     }
 
-    public int withdrawMoney(int accountId, int withdrawMoney) {
-        Account account = accounts.get(accountId);
-        int allMoneyAmount = account.getMoneyAmount();
-        if (withdrawMoney > allMoneyAmount) {
-            allMoneyAmount = 0;
-            return allMoneyAmount;
-        } else {
-            allMoneyAmount = allMoneyAmount - withdrawMoney;
-        }
-        account.setMoneyAmount(allMoneyAmount);
-        return allMoneyAmount;
+    public double getCommission() {
+        return accountProperties.getCommission();
     }
 
-    public String transferMoney(int fromAccountId, int toAccountId, int transferMoney) {
-        Account fromAccount = accounts.get(fromAccountId);
-        Account toAccount = accounts.get(toAccountId);
-        double commission = accountProperties.getCommission();
-        double transferMoneyWithCommission = transferMoney * (1 - commission);
-        String aboutTransfer = "";
+//    public int withdrawMoney(int accountId, int withdrawMoney) {
+//        Account account = accounts.get(accountId);
+//        int allMoneyAmount = account.getMoneyAmount();
+//        if (withdrawMoney > allMoneyAmount) {
+//            allMoneyAmount = 0;
+//            return allMoneyAmount;
+//        } else {
+//            allMoneyAmount = allMoneyAmount - withdrawMoney;
+//        }
+//        account.setMoneyAmount(allMoneyAmount);
+//        return allMoneyAmount;
+//    }
 
-        int allMoneyAmount = fromAccount.getMoneyAmount();
-        if (transferMoney > allMoneyAmount) {
-            return aboutTransfer;
-        }
-
-        if (fromAccount.getUserId() == toAccount.getUserId()) {
-            fromAccount.setMoneyAmount(fromAccount.getMoneyAmount() - transferMoney);
-            toAccount.setMoneyAmount(toAccount.getMoneyAmount() + transferMoney);
-            aboutTransfer = "(no commission same user)";
-        } else {
-            fromAccount.setMoneyAmount(fromAccount.getMoneyAmount() - transferMoney);
-            toAccount.setMoneyAmount((int) (toAccount.getMoneyAmount() + transferMoneyWithCommission));
-            aboutTransfer = ", commission is " + commission + "%"
-                + ", recipient received: " + transferMoneyWithCommission;
-        }
-        return aboutTransfer;
-
-    }
+//    public String transferMoney(int fromAccountId, int toAccountId, int transferMoney) {
+//        Account fromAccount = accounts.get(fromAccountId);
+//        Account toAccount = accounts.get(toAccountId);
+//        double commission = accountProperties.getCommission();
+//        double transferMoneyWithCommission = transferMoney * (1 - commission);
+//        String aboutTransfer = "";
+//
+//        int allMoneyAmount = fromAccount.getMoneyAmount();
+//        if (transferMoney > allMoneyAmount) {
+//            return aboutTransfer;
+//        }
+//
+//        if (fromAccount.getUserId() == toAccount.getUserId()) {
+//            fromAccount.setMoneyAmount(fromAccount.getMoneyAmount() - transferMoney);
+//            toAccount.setMoneyAmount(toAccount.getMoneyAmount() + transferMoney);
+//            aboutTransfer = "(no commission same user)";
+//        } else {
+//            fromAccount.setMoneyAmount(fromAccount.getMoneyAmount() - transferMoney);
+//            toAccount.setMoneyAmount((int) (toAccount.getMoneyAmount() + transferMoneyWithCommission));
+//            aboutTransfer = ", commission is " + commission + "%"
+//                + ", recipient received: " + transferMoneyWithCommission;
+//        }
+//        return aboutTransfer;
+//    }
 
     public int getAllMoneyAmount() {
         return accountProperties.getMoneyAmount();

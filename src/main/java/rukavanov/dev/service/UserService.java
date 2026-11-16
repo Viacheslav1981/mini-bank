@@ -1,8 +1,6 @@
 package rukavanov.dev.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import rukavanov.dev.model.Account;
 import rukavanov.dev.model.User;
 
 import java.util.ArrayList;
@@ -14,15 +12,9 @@ import java.util.Map;
 public class UserService {
     private final Map<Integer, User> users = new HashMap<>();
     private int userId;
-    private final List<Account> accounts = new ArrayList<>();
 
-    @Autowired
-    private AccountService accountService;
-
-    public void createUser(String login) {
-        User user = new User();
-        user.setId(++userId);
-        user.setLogin(login);
+    public void addUser(String login) {
+        User user = new User(++userId, login);
         users.put(user.getId(), user);
     }
 
@@ -35,15 +27,6 @@ public class UserService {
 
     public User getUserById(int userId) {
         return users.get(userId);
-    }
-
-    public void addAccount(Account account) {
-        accounts.add(account);
-
-    }
-
-    public List<Account> getAccounts() {
-        return accounts;
     }
 
     public List<User> getUsers() {

@@ -20,6 +20,11 @@ public class Account {
         this.moneyAmount = moneyAmount;
     }
 
+    public Account(int id, int moneyAmount) {
+        this.id = id;
+        this.moneyAmount = moneyAmount;
+    }
+
     public int getId() {
         return id;
     }

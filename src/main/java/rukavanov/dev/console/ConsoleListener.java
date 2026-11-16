@@ -1,19 +1,17 @@
 package rukavanov.dev.console;
 
 import org.springframework.stereotype.Component;
-import rukavanov.dev.model.Account;
 import rukavanov.dev.model.Command;
-import rukavanov.dev.model.User;
-import rukavanov.dev.service.AccountService;
-import rukavanov.dev.service.OperationConsoleListener;
-import rukavanov.dev.service.UserService;
+import rukavanov.dev.service.OperationService;
 
 import java.util.Scanner;
 
 @Component
 public class ConsoleListener {
 
-    private final OperationConsoleListener operationConsoleListener;
+    //private final UserService userService;
+    // private final AccountService accountService;
+    private final OperationService operationService;
 
     private int accountId;
     private int depositMoney;
@@ -22,8 +20,8 @@ public class ConsoleListener {
     private int fromAccountId;
     private int toAccountId;
 
-    public ConsoleListener(OperationConsoleListener operationConsoleListener) {
-        this.operationConsoleListener = operationConsoleListener;
+    public ConsoleListener(OperationService operationService) {
+        this.operationService = operationService;
     }
 
     public void start() {
@@ -45,30 +43,29 @@ public class ConsoleListener {
                     case USER_CREATE:
                         System.out.println("Enter login: ");
                         String login = scanner.nextLine();
-                        operationConsoleListener.createUser(login);
+                        operationService.createUser(login);
                         break;
                     case ACCOUNT_CREATE:
                         System.out.println("Enter user id: ");
                         int userId = scanner.nextInt();
-                        operationConsoleListener.createAccount(userId);
+                        operationService.createAccount(userId);
                         break;
                     case SHOW_ALL_USERS:
-                        System.out.println("All users:");
-                        operationConsoleListener.getAllUsers();
+                        operationService.getAllUsers();
                         break;
                     case ACCOUNT_DEPOSIT:
                         System.out.println("Enter account id: ");
                         accountId = scanner.nextInt();
                         System.out.println("Enter amount to deposit: ");
                         depositMoney = scanner.nextInt();
-                        operationConsoleListener.depositMoney(accountId, depositMoney);
+                        operationService.depositMoney(accountId, depositMoney);
                         break;
                     case ACCOUNT_WITHDRAW:
                         System.out.println("Enter account id: ");
                         accountId = scanner.nextInt();
                         System.out.println("Enter amount to withdraw: ");
                         withdrawMoney = scanner.nextInt();
-                        operationConsoleListener.withdrawMoney(accountId, withdrawMoney);
+                        operationService.withdrawMoney(accountId, withdrawMoney);
                         break;
                     case ACCOUNT_TRANSFER:
                         System.out.println("Enter source account id: ");
@@ -77,9 +74,8 @@ public class ConsoleListener {
                         toAccountId = scanner.nextInt();
                         System.out.println("Enter amount to transfer: ");
                         transferMoney = scanner.nextInt();
-                        operationConsoleListener.transferMoney(fromAccountId, toAccountId, transferMoney);
+                        operationService.transferMoney(fromAccountId, toAccountId, transferMoney);
                         break;
-
                     case EXIT:
                         System.out.println("MiniBank stopped.");
                         return;
