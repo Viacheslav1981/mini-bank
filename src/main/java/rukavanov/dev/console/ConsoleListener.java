@@ -11,13 +11,6 @@ public class ConsoleListener {
 
     private final OperationService operationService;
 
-    private int accountId;
-    private int depositMoney;
-    private int withdrawMoney;
-    private int transferMoney;
-    private int fromAccountId;
-    private int toAccountId;
-
     public ConsoleListener(OperationService operationService) {
         this.operationService = operationService;
     }
@@ -53,26 +46,31 @@ public class ConsoleListener {
                         break;
                     case ACCOUNT_DEPOSIT:
                         System.out.println("Enter account id: ");
-                        accountId = scanner.nextInt();
+                        int accountId = scanner.nextInt();
                         System.out.println("Enter amount to deposit: ");
-                        depositMoney = scanner.nextInt();
+                        int depositMoney = scanner.nextInt();
                         operationService.depositMoney(accountId, depositMoney);
                         break;
                     case ACCOUNT_WITHDRAW:
                         System.out.println("Enter account id: ");
                         accountId = scanner.nextInt();
                         System.out.println("Enter amount to withdraw: ");
-                        withdrawMoney = scanner.nextInt();
+                        int withdrawMoney = scanner.nextInt();
                         operationService.withdrawMoney(accountId, withdrawMoney);
                         break;
                     case ACCOUNT_TRANSFER:
                         System.out.println("Enter source account id: ");
-                        fromAccountId = scanner.nextInt();
+                        int fromAccountId = scanner.nextInt();
                         System.out.println("Enter destination account id: ");
-                        toAccountId = scanner.nextInt();
+                        int toAccountId = scanner.nextInt();
                         System.out.println("Enter amount to transfer: ");
-                        transferMoney = scanner.nextInt();
+                        int transferMoney = scanner.nextInt();
                         operationService.transferMoney(fromAccountId, toAccountId, transferMoney);
+                        break;
+                    case ACCOUNT_CLOSE:
+                        System.out.println("Enter account id to close: ");
+                        accountId = scanner.nextInt();
+                        operationService.closeAccount(accountId);
                         break;
                     case EXIT:
                         System.out.println("MiniBank stopped.");

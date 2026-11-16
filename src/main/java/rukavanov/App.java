@@ -13,6 +13,5 @@ public class App {
         ConsoleListener consoleListener = new ConsoleListener(operationService);
         consoleListener.start();
 
-
     }
 }
